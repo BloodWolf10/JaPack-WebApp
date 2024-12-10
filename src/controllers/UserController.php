@@ -1,70 +1,100 @@
 <?php
-require_once __DIR__ . '/../models/User.php';
 
-function list_users_action() {
-    $users = get_all_users();
-    require __DIR__ . '/../views/users/users.php';
-}
+require_once 'model/usermodel.php'; // Include the User model
 
-function show_user_action($id) {
-    $user = get_user_by_id($id);
-    require __DIR__ . '/../views/users/show.php';
-}
+class UserController
+{
+    private $userModel;
 
-function create_user_action() { 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
-        $password = $_POST['password'];
+    public function __construct()
+    {
+        $this->userModel = new UserModel(); // Initialize the model
+    }
 
-        $result = create_user($username, $email, $role, $password);
+    // List all users
+    public function routing()
+    {
+        $users = $this->userModel->getAllUsers();
+        include 'viewusers.php'; // Pass data to the view
+    }
 
-        if ($result) {
-            header('Location: /users');
-            exit;
+    // Show user creation form
+    public function create()
+    {
+        include 'userRegister.php';
+    }
+
+    // Save a new user
+    public function store()
+    {
+        $data = [
+            'fullname' => $_POST['fullname'],
+            'age' => $_POST['age'],
+            'gender' => $_POST['gender'],
+            'contact' => $_POST['contact'],
+            'address' => $_POST['address'],
+            'email' => $_POST['email'],
+            'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+        ];
+
+        if ($this->userModel->createUser($data)) {
+            header('Location: regSuccessful.php?action=index');
         } else {
-            echo 'Error creating user.';
+            echo "Error: Unable to create user.";
         }
     }
 
-    require __DIR__ . '/../views/users/create.php';
-}
-
-function update_user_action() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'];
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $role = $_POST['role'];
-        $password = !empty($_POST['password']) ? $_POST['password'] : null;
-
-        // Call update_user with the password only if provided
-        $result = update_user($id, $username, $email, $role, $password);
-
-        if ($result) {
-            header('Location: /users');
-            exit;
+    // Show edit form for a specific user
+    public function edit($id)
+    {
+        $user = $this->userModel->getUserById($id);
+        if ($user) {
+            include 'edituser.php';
         } else {
-            echo 'Error updating user.';
+            echo "User not found.";
         }
-    } else {
-        if (isset($_GET['id'])) {
-            $user = get_user_by_id($_GET['id']);
-            require __DIR__ . '/../views/users/update.php';
+    }
+
+    // Update an existing user
+    public function update($id)
+    {
+        $data = [
+            'id' => $id,
+            'fullname' => $_POST['fullname'],
+            'age' => $_POST['age'],
+            'gender' => $_POST['gender'],
+            'contact' => $_POST['contact'],
+            'address' => $_POST['address'],
+            'email' => $_POST['email'],
+        ];
+
+        if (!empty($_POST['password'])) {
+            $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        }
+
+        if ($this->userModel->updateUser($data)) {
+            header('Location: viewusers.php?action=index');
         } else {
-            header('HTTP/1.1 404 Not Found');
-            echo '<html><body><h1>User ID Not Provided</h1></body></html>';
+            echo "Error: Unable to update user.";
+        }
+    }
+
+    // Delete a user
+    public function delete($id)
+    {
+      try{  
+        
+        if ($this->userModel->deleteUser($id)) {
+            header('Location: viewusers.php?action=index');
+        } else {
+            echo "Error: Unable to delete user.";
+        } }
+
+        catch (Exception $e)
+        {
+            echo "Error: " . $e->getMessage();
+
         }
     }
 }
-
-function delete_user_action($id) {
-    $result = delete_user($id);
-    if ($result) {
-        header('Location: /users');
-        exit;
-    } else {
-        echo 'Error deleting user.';
-    }
-}
+?>

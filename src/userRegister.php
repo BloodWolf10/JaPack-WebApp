@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container">
     <h1 class="p-3"> User Register </h1>
 
-    <form action="userRegister.php" method="post">
+    <form action="routing.php?action=store" method="post">
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3" for="FullName"> Full Name </label>

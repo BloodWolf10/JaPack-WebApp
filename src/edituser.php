@@ -1,6 +1,31 @@
 <?php
-// Assuming you have a user object populated from a database or session.
-// Example: $user = ['id' => 1, 'fullname' => 'John Doe', 'age' => 30, 'gender' => 'Male', 'address' => '123 Street, City', 'contact' => '1234567890', 'email' => 'john.doe@example.com', 'password' => 'password123'];
+// Include the database connection
+require 'db.php';
+
+// Check if the id is provided in the query string
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $userId = intval($_GET['id']);
+
+    try {
+        // Fetch user details from the database
+        $sql = "SELECT * FROM users WHERE id = :id LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // If user not found, handle the error
+        if (!$user) {
+            echo "<p>User not found.</p>";
+            exit;
+        }
+    } catch (PDOException $e) {
+        echo "Error fetching user: " . $e->getMessage();
+        exit;
+    }
+} else {
+    echo "<p>Invalid or missing user ID.</p>";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,116 +40,73 @@
 </head>
 <body>
 
+<?php include 'navigationbar.php'; ?>
+
 <h1 class="p-3">Edit User</h1>
 
 <div class="container">
 
-    <form action="editSaveUser.php" method="post">
+    <form action="routing.php?action=update&id=<?php echo $user['id']; ?>" method="POST">
         <!-- Hidden field for the user ID -->
-        <div class="form-group col-md-12">
-            <div class="col-md-6">
-                <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>" class="form-control input-sm" />
-            </div>
-        </div>
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>" class="form-control" />
 
         <!-- Full Name -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="FullName">Full Name</label>
-                <div class="col-md-6">
-                    <input type="text" name="fullname" id="fullname" class="form-control input-sm" value="<?php echo htmlspecialchars($user['fullname']); ?>" required="required" />
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" name="fullname" id="fullname" class="form-control" value="<?php echo htmlspecialchars($user['fullname']); ?>" required />
         </div>
-        <br/>
 
         <!-- Age -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="Age">Age</label>
-                <div class="col-md-6">
-                    <input type="text" name="age" id="age" class="form-control input-sm" value="<?php echo htmlspecialchars($user['age']); ?>" required="required" />
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" class="form-control" value="<?php echo htmlspecialchars($user['age']); ?>" required />
         </div>
-        <br/>
 
         <!-- Gender -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3">Gender</label>
-                <div class="col-md-6">
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" name="gender" class="form-check-input" value="Male" <?php echo ($user['gender'] == 'Male') ? 'checked' : ''; ?> /> Male
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" name="gender" class="form-check-input" value="Female" <?php echo ($user['gender'] == 'Female') ? 'checked' : ''; ?> /> Female
-                        </label>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+            <label>Gender</label><br>
+            <label class="form-check-label">
+                <input type="radio" name="gender" value="Male" <?php echo ($user['gender'] == 'Male') ? 'checked' : ''; ?> /> Male
+            </label>
+            <label class="form-check-label">
+                <input type="radio" name="gender" value="Female" <?php echo ($user['gender'] == 'Female') ? 'checked' : ''; ?> /> Female
+            </label>
         </div>
-        <br/>
 
         <!-- Address -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="Address">Home Address</label>
-                <div class="col-md-6">
-                    <input type="text" name="address" id="address" class="form-control input-sm" value="<?php echo htmlspecialchars($user['address']); ?>" required="required" />
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" class="form-control" value="<?php echo htmlspecialchars($user['address']); ?>" required />
         </div>
-        <br/>
 
-        <!-- Contact Number -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="Contact">Contact Number</label>
-                <div class="col-md-6">
-                    <input type="text" name="contact" id="contact" class="form-control input-sm" value="<?php echo htmlspecialchars($user['contact']); ?>" required="required" />
-                </div>
-            </div>
+        <!-- Contact -->
+        <div class="form-group">
+            <label for="contact">Contact Number</label>
+            <input type="text" name="contact" id="contact" class="form-control" value="<?php echo htmlspecialchars($user['contact']); ?>" required />
         </div>
-        <br/>
 
-        <!-- Email Address -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="Email">Email Address</label>
-                <div class="col-md-6">
-                    <input type="email" name="email" id="email" class="form-control input-sm" value="<?php echo htmlspecialchars($user['email']); ?>" required="required" />
-                </div>
-            </div>
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" class="form-control" value="<?php echo htmlspecialchars($user['email']); ?>" required />
         </div>
-        <br/>
 
         <!-- Password -->
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-3" for="Password">Password</label>
-                <div class="col-md-6">
-                    <input type="text" name="password" id="password" class="form-control input-sm" value="<?php echo htmlspecialchars($user['password']); ?>" required="required" />
-                </div>
-            </div>
-        </div>
-        <br/>
+        <!-- <div class="form-group">
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" class="form-control" value="<?php echo htmlspecialchars($user['password']); ?>" required />
+        </div> -->
 
-        <!-- Submit Button -->
-        <div class="row p-2">
-            <div class="col-md-2">
-                <button class="btn btn-success" type="submit">Update</button>
-            </div>
-        </div>
-
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
 
 </body>
 </html>

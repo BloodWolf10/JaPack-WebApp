@@ -4,7 +4,7 @@ $homeLink = '/';
 $servicesLink = '/services.php';
 $aboutUsLink = '/aboutus.php';
 $loginLink = '/login.php';
-$registerLink = '/regCheck.php';
+$registerLink = '/userRegister.php';
 $contactUsLink = '/contactus.php';
 $logoPath = 'Images/gallery/JPack-Logo.png'; 
 
