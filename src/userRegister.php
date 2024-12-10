@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_confirm = trim($_POST['password_confirm']);
 
     if ($password !== $password_confirm) {
-        echo "Passwords do not match!";
+        echo "Passwords d not match!";
         exit;
     }
 
