@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+< lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <link href="CSS/theme.css" rel="stylesheet" />
+</head>
+ <br>
+<body>
+<?php include 'navigationbar.php'; ?>
 <?php
 // Include the database connection
 require 'db.php';
@@ -28,17 +39,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Edit User</title>
 
-    <link href="CSS/theme.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</head>
-<body>
 
 <?php include 'navigationbar.php'; ?>
 
@@ -96,9 +97,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <label for="password">Password</label>
             <input type="text" name="password" id="password" class="form-control" value="<?php echo htmlspecialchars($user['password']); ?>" required />
         </div> -->
-
+          <br>
         <!-- Submit -->
         <button type="submit" class="btn btn-primary">Update</button>
+        <a href="viewusers.php?action=index" class="btn btn-secondary">Cancel</a>
     </form>
 
 </div>
@@ -107,6 +109,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 
-
+<!-- Footer NAV BAR -->
+<?php include 'footer.php'; ?>
 </body>
 </html>

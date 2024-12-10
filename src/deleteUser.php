@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Delete User</title>
+    <link href="CSS/theme.css" rel="stylesheet" />
+
+</head>
+
+
 <?php
 // Include database connection
 require 'db.php';
@@ -22,18 +32,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Delete User</title>
-    <link href="CSS/theme.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
+
 <body>
+<?php include 'navigationbar.php'; ?>
 <div class="container">
     <h1 class="p-3">Delete User</h1>
-
+     <br>
+     <br>
+     <br>
     <p>Are you sure you want to delete <strong><?php echo htmlspecialchars($user['fullname']); ?></strong>?</p>
     
     <form action="routing.php?action=delete&id=<?php echo $user['id']; ?>" method="POST">
@@ -41,5 +47,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <a href="viewusers.php?action=index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<?php include 'footer.php'; ?>
 </body>
 </html>
