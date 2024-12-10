@@ -1,49 +1,44 @@
 <?php
 
-require_once 'services/AdminService.php';
-require_once 'services/UserService.php';
+require_once 'model/loginmodel.php'; // Include the User model
+class LoginController {
+    private $userModel;
 
-class LoginController
-{
-    private $adminService;
-    private $userService;
-
-    public function __construct()
-    {
-        $this->adminService = new AdminService();
-        $this->userService = new UserService();
+    public function __construct() {
+        $this->userModel = new UserModel(); // Initialize the model
     }
 
-    public function showLoginForm()
-    {
-        include 'views/Login.php';
-    }
+    // Method to handle the login process
+    public function login() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
 
-    public function login($username, $password)
-    {
-        try {
-            if ($this->adminService->isValidAdmin($username, $password)) {
-                // Admin login successful
-                header('Location: /adashboard');
-                exit;
-            } elseif ($this->userService->isValidUser($username, $password)) {
-                // User login successful
-                header('Location: /udashboard');
+            // Validate input
+            if (empty($email) || empty($password)) {
+                $error = 'Username and password are required.';
+                include 'adminDashboard.php'; // Display the login page with error
+                return;
+            }
+
+            // Attempt to authenticate the user
+            $user = $this->userModel->getUserByEmail($email); // Calls the method in UserModel
+
+            if ($user && password_verify($password, $user['password'])) {
+                // Set session variables if login is successful
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
+
+                // Redirect to the dashboard or home page
+                header('Location: adminDashboard.php');
                 exit;
             } else {
                 // Invalid credentials
-                $error = "Invalid username or password";
-                include 'views/ErrorLogin.php';
+                $error = 'Invalid email or password.';
+                include 'loginView.php'; // Display the login page with error
             }
-        } catch (Exception $e) {
-            // Handle unexpected errors
-            $error = "An unexpected error occurred. Please try again.";
-            include 'views/ErrorLogin.php';
-        }
-    }
-
-    public function elogin()
-    {
-        include 'views/ErrorLogin.php';
-    }
+ }
+}
 }

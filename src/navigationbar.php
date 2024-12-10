@@ -1,12 +1,17 @@
 <?php
+session_start(); // Start the session to check login status
 
 $homeLink = '/';
 $servicesLink = '/services.php';
 $aboutUsLink = '/aboutus.php';
 $loginLink = '/login.php';
-$registerLink = '/userRegister.php';
+$registerLink = '/regCheck.php';
 $contactUsLink = '/contactus.php';
 $logoPath = 'Images/gallery/JPack-Logo.png'; 
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+$logoutLink = '/logout.php'; // Define the logout link
 
 ?>
 
@@ -22,16 +27,23 @@ $logoPath = 'Images/gallery/JPack-Logo.png';
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="<?php echo $homeLink; ?>">Home</a></li>
                 <li class="nav-item px-2"><a class="nav-link" href="<?php echo $servicesLink; ?>">Our Services</a></li>
-                <!-- <li class="nav-item px-2"><a class="nav-link" href="<?php echo $findUsLink; ?>">Find Us</a></li> -->
                 <li class="nav-item px-2"><a class="nav-link" href="<?php echo $aboutUsLink; ?>">About Us</a></li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="<?php echo $loginLink; ?>">Login</a>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="<?php echo $registerLink; ?>">Register</a>
-                </li>
+                <?php if ($isLoggedIn): ?>
+                    <!-- User is logged in, show logout link -->
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="<?php echo $logoutLink; ?>">Logout</a>
+                    </li>
+                <?php else: ?>
+                    <!-- User is not logged in, show login and register links -->
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="<?php echo $loginLink; ?>">Login</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="<?php echo $registerLink; ?>">Register</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="<?php echo $contactUsLink; ?>">Contact Us</a>
         </div>

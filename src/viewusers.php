@@ -1,21 +1,3 @@
-<!-- <?php
-// Sample data for users. In a real application, you'd fetch this from a database.
-//$userList = [
-  //  ['id' => 1, 'fullname' => 'John Doe', 'age' => 30, 'gender' => 'Male', 'contact' => '1234567890', 'address' => '1234 Elm St', 'email' => 'john.doe@example.com', 'password' => 'password123'],
-   // ['id' => 2, 'fullname' => 'Jane Smith', 'age' => 28, 'gender' => 'Female', 'contact' => '0987654321', 'address' => '5678 Oak St', 'email' => 'jane.smith@example.com', 'password' => 'password456']
-    // Add more users here...
-//];
-//?> -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>View Users</title>
-    <link href="CSS/theme.css" rel="stylesheet" />
-</head>
-<body>
-
 <?php
 // Include the database connection
 require 'db.php';
@@ -34,12 +16,21 @@ try {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+    <link href="CSS/theme.css" rel="stylesheet">
+    
 
+</head>
+<body>
 
-<!-- Include the Login Admin NavBar (can be done using PHP include or a template system) -->
-<?php include 'navigationbar.php'; ?>
+<?php include 'navigationbar.php'; ?> <!-- Include Navigation Bar -->
 
-<section class="py-xxl-10 pb-0" id="home">
+<section class="py-5 bg-light">
     <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
     </div>
 </section>
@@ -47,8 +38,9 @@ try {
 <div class="container">
     <h1 class="p-3">User List</h1>
 
-    <table class="table table-bordered">
-        <thead>
+    <!-- Table with Bootstrap 5 styling -->
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Full Name</th>
@@ -57,7 +49,6 @@ try {
                 <th>Contact Number</th>
                 <th>Home Address</th>
                 <th>Email Address</th>
-                
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -72,14 +63,15 @@ try {
                     <td><?php echo htmlspecialchars($user['contact']); ?></td>
                     <td><?php echo htmlspecialchars($user['address']); ?></td>
                     <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    
 
+                    <!-- Edit button with link -->
                     <td>
                         <button type="button" class="btn btn-success">
                             <a href="editUser.php?id=<?php echo urlencode($user['id']); ?>" class="text-white">Edit</a>
                         </button>
                     </td>
 
+                    <!-- Delete button with link -->
                     <td>
                         <button type="button" class="btn btn-danger">
                             <a href="deleteUser.php?id=<?php echo urlencode($user['id']); ?>" class="text-white">Delete</a>
@@ -90,21 +82,23 @@ try {
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary btn-block">
-        <a href="userRegister.php" class="text-white">Add New User</a>
-    </button>
+    <!-- Add New User Button -->
+    <div class="d-flex justify-content-start">
+        <button type="button" class="btn btn-primary">
+            <a href="userRegister.php" class="text-white">Add New User</a>
+        </button>
 
-    <button type="button" class="btn btn-primary btn-block">
-        <a href="adashboard.php" class="text-white">Back To Dashboard</a>
-    </button>
+        <!-- Back to Dashboard Button -->
+        <button type="button" class="btn btn-secondary ms-3">
+            <a href="adminDashboard.php" class="text-white">Back To Dashboard</a>
+        </button>
+    </div>
 
 </div>
 
-<!-- Include the Footer Navigation Bar (can be done using PHP include or a template system) -->
+<!-- Include Footer -->
 <?php include 'footer.php'; ?>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

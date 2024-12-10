@@ -1,3 +1,18 @@
+<?php
+session_start(); // Start session before any output
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit;
+}
+
+// Continue with the dashboard
+echo "Welcome, " . $_SESSION['email'];
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,15 +22,13 @@
 </head>
 <body>
 
+
+
 <!-- Include the admin navigation bar -->
-<?php include('adminNavBar.php'); ?>
+<?php include('navigationbar.php'); ?>
 
 <br/><br/><br/><br/>
 
-<section class="py-xxl-10 pb-0" id="home">
-    <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
-    </div>
-</section>
 
 <section>
     <div class="container">
@@ -36,7 +49,7 @@
                         </div>
                         <div class="text-center my-5">
                             <div class="d-grid">
-                                <a href="getAdmins.php"><button class="btn btn-outline-danger" type="button">View Admin List</button></a>
+                                <a href="packagelist.php"><button class="btn btn-outline-danger" type="button">View Packages</button></a>
                             </div>
                         </div>
                     </div>
@@ -53,7 +66,7 @@
                         </div>
                         <div class="text-center my-5">
                             <div class="d-grid">
-                                <a href="getUserList.php"><button class="btn btn-outline-danger" type="button">View User List</button></a>
+                                <a href="viewusers.php"><button class="btn btn-outline-danger" type="button">View Users</button></a>
                             </div>
                         </div>
                     </div>
@@ -63,24 +76,7 @@
 
         <br/>
 
-        <!-- View Packages Card -->
-        <div class="row h-100 justify-content-center">
-            <div class="col-md-4 pt-4 px-md-2 px-lg-3">
-                <div class="card h-100 px-lg-5 card-span">
-                    <div class="card-body d-flex flex-column justify-content-around">
-                        <div class="text-center pt-5">
-                            <img class="img-fluid" src="Images/icons/services-1.svg" alt="View Packages" />
-                            <h5 class="my-4">View Packages</h5>
-                        </div>
-                        <div class="text-center my-5">
-                            <div class="d-grid">
-                                <a href="statusPackages.php"><button class="btn btn-outline-danger" type="button">View Packages List</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </section>
 

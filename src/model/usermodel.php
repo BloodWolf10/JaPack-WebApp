@@ -45,5 +45,13 @@ class UserModel
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
+
+    public function getUserByEmail($email)
+    {
+        $sql = 'SELECT * FROM users WHERE username = :username LIMIT 1';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['username' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }
 ?>
