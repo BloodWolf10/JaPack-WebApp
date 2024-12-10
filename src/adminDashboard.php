@@ -45,7 +45,7 @@ echo "Welcome, " . $_SESSION['email'];
                     <div class="card-body d-flex flex-column justify-content-around">
                         <div class="text-center pt-5">
                             <img class="img-fluid" src="Images/icons/services-1.svg" alt="View Admins" />
-                            <h5 class="my-4">View Admins</h5>
+                            <h5 class="my-4">View Packages</h5>
                         </div>
                         <div class="text-center my-5">
                             <div class="d-grid">

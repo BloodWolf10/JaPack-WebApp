@@ -37,7 +37,7 @@ class LoginController {
             } else {
                 // Invalid credentials
                 $error = 'Invalid email or password.';
-                include 'loginView.php'; // Display the login page with error
+                include 'login.php'; // Display the login page with error
             }
  }
 }

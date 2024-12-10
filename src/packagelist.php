@@ -1,3 +1,22 @@
+<?php
+// Include the database connection
+require 'db.php';
+
+// Initialize $userList as an empty array
+$userList = [];
+
+try {
+    // Fetch data from the database
+    $sql = "SELECT * FROM user_package";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $packageList = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all rows as an associative array
+} catch (PDOException $e) {
+    echo "Error fetching users: " . $e->getMessage();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,15 +39,15 @@
 
     <div class="container">
         <h1 class="p-3">Package List</h1>
-        <table class="table table-bordered">
-            <tr>
+        <table class="table table-striped table-bordered table-hover">
+            <tr class="table-dark">
                 <th>Package ID</th>
                 <th>Package Type</th>
                 <th>Package Value</th>
                 <th>Description</th>
                 <th>Number of Items</th>
                 <th>Date Created</th>
-                <th>Update Package Date</th>
+               
                 <th>Package Status</th>
                 <th>Seller</th>
                 <th>Pick-Up Address</th>
@@ -38,7 +57,7 @@
             </tr>
 
             <!-- PHP Loop to Display Packages -->
-            <?php foreach ($packages as $package): ?>
+            <?php foreach ($packageList as $package): ?>
                 <tr>
                     <td><?= htmlspecialchars($package['id']) ?></td>
                     <td><?= htmlspecialchars($package['packageType']) ?></td>
@@ -46,7 +65,7 @@
                     <td><?= htmlspecialchars($package['packageDescription']) ?></td>
                     <td><?= htmlspecialchars($package['numberOfItems']) ?></td>
                     <td><?= htmlspecialchars($package['createdOn']) ?></td>
-                    <td><?= htmlspecialchars($package['updatedOn']) ?></td>
+                    
                     <td><?= htmlspecialchars($package['packageStatus']) ?></td>
                     <td><?= htmlspecialchars($package['seller']) ?></td>
                     <td><?= htmlspecialchars($package['pickupaddress']) ?></td>
@@ -64,10 +83,10 @@
         </table>
 
         <!-- Add New Package Button -->
-        <a href="registerPackage.php" class="btn btn-primary btn-block">Add New Package</a>
+        <a href="packageRegister.php" class="btn btn-primary btn-block">Add New Package</a>
 
         <!-- Back to Dashboard Button -->
-        <a href="adashboard.php" class="btn btn-primary btn-block">Back To Dashboard</a>
+        <a href="adminDashboard.php" class="btn btn-primary btn-block">Back To Dashboard</a>
     </div>
 
     <!-- Include Footer Navigation Bar -->

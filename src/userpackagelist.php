@@ -49,7 +49,7 @@ include('FooterNavigationBar.php');
     </table>
 
     <button type="button" class="btn btn-primary btn-block">
-        <a href="registerPackage.php">Add New Package</a>
+        <a href="packageRegister.php">Add New Package</a>
     </button>
 
     <button type="button" class="btn btn-primary btn-block">

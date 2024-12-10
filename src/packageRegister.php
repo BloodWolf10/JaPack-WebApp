@@ -12,8 +12,52 @@
 </head>
 <body>
 
+<?php
+
+require 'db.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $packageType = trim($_POST['packageType']);
+    $packageValue = trim($_POST['packageValue']);
+    $packageDescription = trim($_POST['packageDescription']);
+    $numberOfItems = trim($_POST['numberOfItems']);
+    $packageStatus = trim($_POST['packageStatus']);
+    $seller = trim($_POST['seller']);
+    $pickupaddress = trim($_POST['pickupaddress']);
+    $dropoffaddress = trim($_POST['dropoffaddress']);
+
+    // Insert data into the database
+    $sql = "INSERT INTO user_package (packageType, packageValue, packageDescription, numberOfItems, packageStatus, seller, pickupaddress, dropoffaddress) 
+            VALUES (:packageType, :packageValue, :packageDescription, :numberOfItems, :packageStatus, :seller, :pickupaddress, :dropoffaddress)";
+    
+    $stmt = $pdo->prepare($sql);
+
+    try {
+        $stmt->execute([
+            'packageType' => $packageType,
+            'packageValue' => $packageValue,
+            'packageDescription' => $packageDescription,
+            'numberOfItems' => $numberOfItems,
+            'packageStatus' => $packageStatus,
+            'seller' => $seller,
+            'pickupaddress' => $pickupaddress,
+            'dropoffaddress' => $dropoffaddress,
+        ]);
+        
+        echo "Package registration successful!";
+        header("Location: regSuccessful.php");
+    } catch (\PDOException $e) {
+        if ($e->getCode() == 23000) {
+            echo "Error: Duplicate entry (e.g., package already exists).";
+        } else {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+}
+?>
+
 <!-- Include Navigation Bar (assuming you have a file called LoginUserNavBar.php for the navbar) -->
-<?php include('LoginUserNavBar.php'); ?> <!-- Include your navigation bar here -->
+<?php include('navigationbar.php'); ?> <!-- Include your navigation bar here -->
 
 <section class="py-xxl-10 pb-0" id="home">
     <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
@@ -25,7 +69,7 @@
 
 <h1 class="p-3">Package Registration</h1>
 
-<form action="registerPackage.php" method="post">
+<form action="packroute.php?action=store" method="post">
     <div class="row">
         <div class="form-group col-md-12">
             <label for="customerid">Customer ID:</label>
@@ -45,6 +89,19 @@
         </div>
     </div>
     <br/>
+
+    <div class="row">
+    <div class="form-group col-md-12">
+        <label for="packageStatus">Package Status:</label>
+        <div class="col-md-6">
+            <select id="packageStatus" name="packageStatus" required>
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+            </select><br><br>
+        </div>
+    </div>
+</div>
 
     <div class="row">
         <div class="form-group col-md-12">
@@ -108,6 +165,7 @@
 </form>
 
 </div>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

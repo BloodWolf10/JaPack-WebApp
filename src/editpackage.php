@@ -1,40 +1,54 @@
+<!DOCTYPE html>
+< lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Package</title>
+    <link href="CSS/theme.css" rel="stylesheet" />
+</head>
+ <br>
+<body>
+<?php include 'navigationbar.php'; ?>
 <?php
-// Initialize variables if needed, such as for existing package data (for example, $package).
-// You should replace this with your own logic to fetch package data from a database or session.
-$package = [
-    'id' => 1,
-    'packageType' => 'Standard',
-    'packageValue' => '100',
-    'packageDescription' => 'Standard package description',
-    'numberOfItems' => 5,
-    'createdOn' => '2024-12-01',
-    'updatedOn' => '2024-12-01',
-    'packageStatus' => 'Active',
-    'seller' => 'John Doe',
-    'pickupaddress' => '123 Pickup St.',
-    'dropoffaddress' => '456 Dropoff St.'
-];
+// Include the database connection
+require 'db.php';
+
+// Check if the id is provided in the query string
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $packageId = intval($_GET['id']);
+
+    try {
+        // Fetch user details from the database
+        $sql = "SELECT * FROM user_package WHERE id = :id LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $packageId]);
+        $package = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // If user not found, handle the error
+        if (!$package) {
+            echo "<p>User not found.</p>";
+            exit;
+        }
+    } catch (PDOException $e) {
+        echo "Error fetching user: " . $e->getMessage();
+        exit;
+    }
+} else {
+    echo "<p>Invalid or missing user ID.</p>";
+    exit;
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Edit User</title>
-    <link href="CSS/theme.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</head>
-<body>
 
 <h1 class="p-3"> Edit Package</h1>
 
 <div class="container">
 
-    <form action="editSavePackage.php" method="post">
+<form action="packroute.php?action=update&id=<?php echo $package['id']; ?>" method="POST">
+
         <div class="form-group col-md-12">
             <div class="col-md-6">
-                <input type="hidden" name="id" value="<?= $package['id']; ?>" class="form-control input-sm" />
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($package['id']); ?>" class="form-control" />
             </div>
         </div>
 
@@ -139,7 +153,8 @@ $package = [
 
         <div class="row p-2">
             <div class="col-md-2">
-                <button class="btn btn-success"> Update </button>
+                <button type=submit class="btn btn-success"> Update </button>
+                <a href="packagelist.php?action=index" class="btn btn-secondary">Cancel</a>
             </div>
         </div>
 
@@ -149,5 +164,8 @@ $package = [
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+<!-- Footer NAV BAR -->
+<?php include 'footer.php'; ?>
 </body>
 </html>
