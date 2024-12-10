@@ -43,7 +43,7 @@ services:
     networks:
       - app-network
     volumes:
-      - "./db:/docker-entrypoint-initdb.d" #sync database persistence to container
+      - db_data:/var/lib/mysql
 
 
   phpmyadmin:
@@ -60,3 +60,6 @@ services:
 networks: #network for all running services
   app-network:
     driver: bridge
+
+volumes:
+  db_data:
