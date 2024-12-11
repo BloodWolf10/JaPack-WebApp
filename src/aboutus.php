@@ -1,3 +1,7 @@
+<?php
+session_start(); // Must be the first line
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +23,7 @@
 <div class="container">
     <h2 class="text-danger">About Us</h2><br />
 
-    <p style="text-align:center">Mr. Tyreke Lewin founded JAPack with the express purpose of making it simpler
+    <p style="text-align:center">The JAPACK team took the initiative to express the purpose of making it simpler
         for clients to receive anything they choose at their doorstep in a timely
         manner and offering a service that maximizes value for both clients and owners.
         To guarantee that we consistently surpass our clients' expectations, we work to

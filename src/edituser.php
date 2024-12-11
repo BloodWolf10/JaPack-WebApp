@@ -1,3 +1,5 @@
+<?php include 'navigationbar.php'; ?>
+
 <!DOCTYPE html>
 < lang="en">
 
@@ -8,7 +10,7 @@
 </head>
  <br>
 <body>
-<?php include 'navigationbar.php'; ?>
+
 <?php
 // Include the database connection
 require 'db.php';

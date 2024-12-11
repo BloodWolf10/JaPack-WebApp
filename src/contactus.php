@@ -1,3 +1,5 @@
+<?php include 'navigationbar.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
 
 <body>
 
-<?php include 'navigationbar.php'; ?>
+
 
 <section class="py-xxl-10 pb-0" id="home">
     <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero.png);background-position:top center;background-size:cover;">

@@ -7,12 +7,12 @@ $aboutUsLink = '/aboutus.php';
 $loginLink = '/login.php';
 $registerLink = '/userRegister.php';
 $contactUsLink = '/contactus.php';
+$dashboardLink = '/adminDashboard.php'; // Define the dashboard link
 $logoPath = 'Images/gallery/JPack-Logo.png'; 
 
 // Check if the user is logged in
 $isLoggedIn = isset($_SESSION['user_id']);
 $logoutLink = '/logout.php'; // Define the logout link
-
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
@@ -28,6 +28,12 @@ $logoutLink = '/logout.php'; // Define the logout link
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="<?php echo $homeLink; ?>">Home</a></li>
                 <li class="nav-item px-2"><a class="nav-link" href="<?php echo $servicesLink; ?>">Our Services</a></li>
                 <li class="nav-item px-2"><a class="nav-link" href="<?php echo $aboutUsLink; ?>">About Us</a></li>
+                <?php if ($isLoggedIn): ?>
+                    <!-- User is logged in, show dashboard link -->
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="<?php echo $dashboardLink; ?>">Dashboard</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <?php if ($isLoggedIn): ?>

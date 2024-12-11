@@ -1,3 +1,6 @@
+<?php
+session_start(); // Must be the first line
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
