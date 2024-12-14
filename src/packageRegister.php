@@ -1,3 +1,5 @@
+<?php include 'navigationbar.php'; ?> <!-- Include your navigation bar here -->
+
 <?php
 // You may include any necessary PHP files, such as a session check or database connections
 // For example, you can include navigation and other necessary files.
@@ -8,12 +10,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Package Registration</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="CSS/theme.css" rel="stylesheet">
 </head>
 <body>
 
 <?php
-
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -56,8 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!-- Include Navigation Bar (assuming you have a file called LoginUserNavBar.php for the navbar) -->
-<?php include('navigationbar.php'); ?> <!-- Include your navigation bar here -->
+
 
 <section class="py-xxl-10 pb-0" id="home">
     <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
@@ -70,102 +72,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h1 class="p-3">Package Registration</h1>
 
 <form action="packroute.php?action=store" method="post">
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="customerid">Customer ID:</label>
-            <div class="col-md-6">
-                <input type="number" id="customerid" name="customerid" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="customerid">Customer ID:</label>
+        <input type="number" id="customerid" name="customerid" class="form-control" required>
     </div>
-    <br/>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="packageType">Package Type:</label>
-            <div class="col-md-6">
-                <input type="text" id="packageType" name="packageType" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="packageType">Package Type:</label>
+        <input type="text" id="packageType" name="packageType" class="form-control" required>
     </div>
-    <br/>
 
-    <div class="row">
-    <div class="form-group col-md-12">
+    <div class="form-group">
         <label for="packageStatus">Package Status:</label>
-        <div class="col-md-6">
-            <select id="packageStatus" name="packageStatus" required>
-                <option value="Pending">Pending</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-            </select><br><br>
-        </div>
-    </div>
-</div>
-
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="packageValue">Package Value:</label>
-            <div class="col-md-6">
-                <input type="text" id="packageValue" name="packageValue" required><br><br>
-            </div>
-        </div>
+        <select id="packageStatus" name="packageStatus" class="form-control" required>
+            <option value="Pending">Pending</option>
+            <option value="Shipped">Shipped</option>
+            <option value="Delivered">Delivered</option>
+        </select>
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="packageDescription">Package Description:</label>
-            <div class="col-md-6">
-                <input type="text" id="packageDescription" name="packageDescription" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="packageValue">Package Value:</label>
+        <input type="text" id="packageValue" name="packageValue" class="form-control" required>
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="numberOfItems">Number of Items:</label>
-            <div class="col-md-6">
-                <input type="text" id="numberOfItems" name="numberOfItems" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="packageDescription">Package Description:</label>
+        <input type="text" id="packageDescription" name="packageDescription" class="form-control" required>
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="seller">Seller:</label>
-            <div class="col-md-6">
-                <input type="text" id="seller" name="seller" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="numberOfItems">Number of Items:</label>
+        <input type="text" id="numberOfItems" name="numberOfItems" class="form-control" required>
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="pickupaddress">Pick-Up Address:</label>
-            <div class="col-md-6">
-                <input type="text" id="pickupaddress" name="pickupaddress" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="seller">Seller:</label>
+        <input type="text" id="seller" name="seller" class="form-control" required>
     </div>
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label for="dropoffaddress">Drop-Off Address:</label>
-            <div class="col-md-6">
-                <input type="text" id="dropoffaddress" name="dropoffaddress" required><br><br>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="pickupaddress">Pick-Up Address:</label>
+        <input type="text" id="pickupaddress" name="pickupaddress" class="form-control" required>
     </div>
 
-    <div class="row p-2">
-        <div class="col-md-2">
-            <button type="submit">Register Package</button>
-        </div>
+    <div class="form-group">
+        <label for="dropoffaddress">Drop-Off Address:</label>
+        <input type="text" id="dropoffaddress" name="dropoffaddress" class="form-control" required>
     </div>
+
+    <button type="submit" class="btn btn-primary">Register Package</button>
+    <a href="packagelist.php?action=index" class="btn btn-secondary">Cancel</a>
 </form>
 
 </div>
 <?php include 'footer.php'; ?>
 
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
