@@ -1,3 +1,6 @@
+<?php include 'navigationbar.php'; ?>
+
+
 <?php
 // Include the database connection
 require 'db.php';
@@ -29,8 +32,7 @@ try {
 </head>
 <body>
 
-    <!-- Include Navigation Bar -->
-    <?php include 'navigationbar.php'; ?>
+ 
 
     <section class="py-xxl-10 pb-0" id="home">
         <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
