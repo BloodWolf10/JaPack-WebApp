@@ -12,16 +12,16 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql zip
 
-COPY ./src /var/www/html
-COPY ./Images /var/www/html/Images
-COPY ./CSS /var/www/html/CSS
-# Install Composer
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install Composer manually
+# RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+#     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+#     && php -r "unlink('composer-setup.php');"
 
-# COPY ./config/php/php.ini /usr/local/etc/php/php.ini # Uncomment if not using yml file
+# Copy application files
+COPY ./src /var/www/html
 
 # Set working directory
-WORKDIR /src
+WORKDIR /var/www/html
 
 # Expose port 9000 for PHP-FPM
 EXPOSE 9000

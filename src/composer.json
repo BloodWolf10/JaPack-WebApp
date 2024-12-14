@@ -1,0 +1,6 @@
+{
+  "name":"japack/php-webapp",
+ "description":"Php web Application for Japack",
+  "require":{
+    "phpmailer/phpmailer": "^6.9.2"}
+}
