@@ -16,7 +16,7 @@
 <?php
 
 require 'db.php';
-
+require 'mailer.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password_confirm = trim($_POST['password_confirm']);
 
     if ($password !== $password_confirm) {
-        echo "Passwords d not match!";
+        echo "Passwords do not match!";
         exit;
     }
 
@@ -50,7 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              'roleid' => $roleid,
         ]);
         
+
         echo "Registration successful!";
+       
         header("Location: regSuccessful.php");
     } catch (\PDOException $e) {
         if ($e->getCode() == 23000) {
@@ -62,8 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
-
 <section class="py-xxl-10 pb-0" id="home">
     <div class="bg-holder bg-size" style="background-image:url(Images/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
     </div>
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="container">
     <h1 class="p-3"> User Register </h1>
 
-    <form action="userRegister.php" method="post">
+    <form action="routing.php?action=store" method="post">
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3" for="FullName"> Full Name </label>

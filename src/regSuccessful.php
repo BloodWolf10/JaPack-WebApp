@@ -15,9 +15,8 @@
         <div style="border: thin solid #000; padding: 20px;">
             <h1>Thank You For Registering!</h1>
 
-            <p>Please look out for an email from us with your User ID.</p>
-            <p>You will need this ID to register your packages.</p>
-            <p>Any attempts to register a package without a User ID will result in packages being lost.</p>
+            <p>Please look out for an email from us.</p>
+            
 
             <!-- Replace Thymeleaf link with standard PHP link -->
             <a href="login.php" class="btn btn-success">Go to Login</a>

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'model/usermodel.php'; // Include the User model
+require_once 'mailer.php';
 
 class UserController
 {
@@ -27,6 +28,7 @@ class UserController
     // Save a new user
     public function store()
     {
+        sendEmail($_POST['email']);
         $data = [
             'fullname' => $_POST['fullname'],
             'age' => $_POST['age'],
@@ -37,8 +39,11 @@ class UserController
             'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
         ];
 
+       
+
         if ($this->userModel->createUser($data)) {
             header('Location: regSuccessful.php?action=index');
+           
         } else {
             echo "Error: Unable to create user.";
         }
