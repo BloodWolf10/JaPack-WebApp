@@ -20,9 +20,11 @@ $logoutLink = '/logout.php'; // Define the logout link
         <a class="navbar-brand" href="<?php echo $homeLink; ?>">
             <img src="<?php echo $logoPath; ?>" height="95" alt="logo" />
         </a>
+        <!-- Button for burger menu -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Navbar links -->
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="<?php echo $homeLink; ?>">Home</a></li>
@@ -55,3 +57,7 @@ $logoutLink = '/logout.php'; // Define the logout link
         </div>
     </div>
 </nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

@@ -2,5 +2,7 @@
   "name":"japack/php-webapp",
  "description":"Php web Application for Japack",
   "require":{
-    "phpmailer/phpmailer": "^6.9.2"}
+    "phpmailer/phpmailer": "^6.9.2",
+    "tecnickcom/tcpdf": "^6.4",
+   "chillerlan/php-qrcode": "^5.0"}
 }
