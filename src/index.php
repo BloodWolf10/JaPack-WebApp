@@ -33,7 +33,7 @@ session_start(); // Must be the first line
                     <h1 class="fw-normal fs-6 fs-xxl-7"> AN EFFICIENT DELIVERY SYSTEM JUST FOR YOU!</h1>
                     <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Trusted & Proven</h1>
                     <p class="fs-1 mb-5">Whether it's at home, work or in another parish! <br />Speed, Precision, Reliability - We Deliver It All.</p>
-                    <a class="btn btn-primary me-2" href="userRegister.php" role="button">Register<i class="fas fa-arrow-right ms-2"></i></a>
+                 <!-- <a class="btn btn-primary me-2" href="userRegister.php" role="button">Register<i class="fas fa-arrow-right ms-2"></i></a> -->
                 </div>
             </div>
         </div>
